@@ -1,4 +1,4 @@
-﻿///The grid deals with specifying which blocks to fire.
+﻿///The grid will deal with sqr logic and statement rendering over the screen.
 import {Output, Component, OnInit, OnDestroy, EventEmitter, Input, SimpleChange} from '@angular/core';
 import {TapSqr} from './sqr';
 import {TapStatements} from './statements';
@@ -21,58 +21,64 @@ export class TapGrid implements OnInit, OnDestroy {
     time: number = 2000;
     fireNum: number = 2;
     ngOnInit() { }
-    ngOnDestroy() {  }
+    ngOnDestroy() { }
+    ///Set initial states of blocks
     constructor() {
         for (let i = 0; i < 17; i++) {
             this.states.push("initial");
             console.log("state: " + this.states[i]);
         }
     }
+    ///If the title sequence is done then begin the loop to fire the squares.
     ngOnChanges(changes: { [isTitle: string]: SimpleChange }) {
         if (!this.isTitle) {
             setInterval(() => {
                 for (let i = 0; i < this.fireNum; i++) {
-                    this.states[Math.floor(Math.random() * this.states.length)] = "toBeClicked";
+                    let rand: number = Math.floor(Math.random() * this.states.length)
+                    this.states[rand] = "toBeClicked";
+                    console.log("Select " + rand);
                 }
                 console.log("Fire loop");
             }, 2000)
         }
     }
-
-
-    ///Logic to deal with 
+    ///If you pick a sqr which is missed then re run the match until you find one which will not send an error
+    public reSelect(event) {
+        let rand: number = Math.floor(Math.random() * this.states.length)
+        this.states[rand] = "toBeClicked";
+        console.log("Reselect " + rand);
+    }
+    ///Logic to calculate statements which need to be rendered and passed to the application. 
     public sqrTapped(event) {
+        this.countHits(event);
+        this.showStatement();
+        this.tapped.next([this.got,this.missed]);
+    }
+    private countHits(event) {
         if (event[0] == "missed") {
             this.missed = this.missed + 1;
             console.log("Missed: " + this.missed);
-        } 
+        }
         if (event[0] == "gotIt") {
             this.got = this.got + 1;
             console.log("Got: " + this.got);
         } 
-        if (this.missed > 5) {
-            this.isStatement= true;
+    }
+    private showStatement() {
+        if (this.missed % 5 === 0 && this.missed !== 0) {
+            this.isStatement = true;
             this.statementState = "missed";
             setTimeout(() => {
                 this.isStatement = false;
             }, this.time)
         }
-        if (this.got > 5) {
+        if (this.got % 5 === 0 && this.got !== 0  ) {
             this.isStatement = true;
             this.statementState = "gotIt";
             setTimeout(() => {
                 this.isStatement = false;
             }, this.time)
         }
-        ///Pass got and missed to application. 
-        this.tapped.next([this.got,this.missed]);
+
     }
-    ///We call a function constantly from the grid class to fire the sqrs below.
-    private loop() {
-        for (let i = 0; i < this.fireNum; i++) {
-            this.states[Math.floor(Math.random() * this.states.length)] = "isToBeClicked";
-        }
-        console.log("Fire loop");
-        setTimeout(this.loop, this.time);
-    };
 }
