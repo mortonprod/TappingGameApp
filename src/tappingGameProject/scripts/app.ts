@@ -14,7 +14,13 @@ import {Component} from '@angular/core';
 })
 export class App {
     isTitle: boolean = true;
+    got: number = 0;
+    missed:number =0
     public hideTitle() {
         this.isTitle = false;
+    }
+    public tapped(event) {
+        this.got = event[0];
+        this.missed = event[1];
     }
 }
