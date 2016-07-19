@@ -11,7 +11,9 @@ export class TapSqr implements OnChanges {
     @Input() state: string = "Initial";
     ///Output is tapped event.
     @Output() tapped = new EventEmitter();
-    time: number = 2000;
+    @Output() error = new EventEmitter();
+    timeToMissed: number = 5000;///TODO:Must match css
+    timeToInitial: number = 1000;///TODO:Must match css
     baseStyle : string = "baseStyle";
     style: string = "initial";
     timeout: any;
@@ -20,33 +22,36 @@ export class TapSqr implements OnChanges {
     ///@function ngOnChanges
     ///Set timer to be clicked. If fired then send a missed event to grid component.
     ngOnChanges(changes: { [state: string]: SimpleChange }) {
-        if (this.state === "initial" ){
-            this.style = "initial"; 
-        }
-        if (this.state === "toBeClicked") {
+        console.log("Why no work: " this.state + " " + this.style);
+        if (this.state === "toBeClicked" && this.style !== "missed") {
             console.log("Make clickable");
             ///Start timer. If you reach the end then you need to send a missed event.
             this.style = "toBeClicked";
             this.timeout = setTimeout(() => {
                 this.style = "missed"; 
                 this.tapped.next(["missed"]);
-            }, this.time)
+            }, this.timeToMissed)
+        }
+        ///Return error if you are trying to change a square which is missed.
+        if (this.style === "missed"){
+            this.error.next(["error"]);
         }
     }
     ///@function onClick 
     ///Only send clicked events for blocks which should be clicked.
     ///Otherwise send a little shake to note you have made a mistake.
     onClick() {
-        clearTimeout(this.timeout);
-        if (this.style === "isToBeClicked") {
-            this.style = "clicked"; 
-            this.tapped.next(["gotIt"]);
-        } else {
-            this.style = "nonClick"; 
+        if (this.style !== "missed") {
+            clearTimeout(this.timeout);
+            if (this.style === "toBeClicked") {
+                this.style = "clicked";
+                this.tapped.next(["gotIt"]);
+            } else {
+                this.style = "nonClick";
+            }
+            setTimeout(() => {
+                this.style = "initial";
+            }, this.timeToInitial)
         }
-        setTimeout(() => {
-            this.style = "initial"; 
-        }, this.time)
-
     }
 }
