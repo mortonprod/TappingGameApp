@@ -1,19 +1,19 @@
-﻿<!-- Create the grid will all the tap-able sqrs -->
-<!-- This is where all the action takes place. -->
-<!-- TODO:Need to other components over the squares for animation during play -->
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[0]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[1]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[2]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[3]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[4]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[5]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[6]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[7]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[8]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[9]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[10]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[11]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[12]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[13]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[14]"></tap-sqr>
-<tap-sqr (tapped)="sqrTapped($event)" [isTitle] ="isTitle[15]"></tap-sqr>
+﻿<!-- Right hand side is the grid(higher dom) inputs if [], if () then left hand side is grid function(Higher dom)  -->
+<!-- In this case we pass the state to use to the sqr and then return the response of tapped in time or not.-->
+<tap-statements *ngIf="isStatement" [state]="statementState"></tap-statements>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[0]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[1]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[2]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[3]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[4]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[5]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[6]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[7]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[8]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[9]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[10]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[11]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[12]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[13]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[14]"></tap-sqr>
+<tap-sqr (tapped)="sqrTapped($event)" [state]="states[15]"></tap-sqr>
