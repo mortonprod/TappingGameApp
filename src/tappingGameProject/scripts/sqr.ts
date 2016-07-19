@@ -14,6 +14,7 @@ export class TapSqr implements OnChanges {
     time: number = 2000;
     baseStyle : string = "baseStyle";
     style: string = "initial";
+    timeout: any;
 
     ///NOTE YOU DO NOT ADD THIS SINCE INPUT PARAMETER?? Strange??
     ///@function ngOnChanges
@@ -25,8 +26,8 @@ export class TapSqr implements OnChanges {
         if (this.state === "toBeClicked") {
             console.log("Make clickable");
             ///Start timer. If you reach the end then you need to send a missed event.
-            this.style = "toBeClicked"; 
-            setTimeout(() => {
+            this.style = "toBeClicked";
+            this.timeout = setTimeout(() => {
                 this.style = "missed"; 
                 this.tapped.next(["missed"]);
             }, this.time)
@@ -36,6 +37,7 @@ export class TapSqr implements OnChanges {
     ///Only send clicked events for blocks which should be clicked.
     ///Otherwise send a little shake to note you have made a mistake.
     onClick() {
+        clearTimeout(this.timeout);
         if (this.style === "isToBeClicked") {
             this.style = "clicked"; 
             this.tapped.next(["gotIt"]);
