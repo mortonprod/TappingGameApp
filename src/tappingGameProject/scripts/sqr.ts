@@ -1,24 +1,50 @@
-﻿//This is the base components so will update own style and send output event to app components further up the dom hierarchy.
-//Call animations via trigger in code like @sqrState
-//Animation states define the end state. The transition defines how you should move from one state to another given a change.
-import {Component,Output,Input,style,EventEmitter} from '@angular/core';
+﻿///@file sqr.js 
+///All information about business logic stored here. DOM hierarchy and styles given in sqr.html and sqr.css
+import {Component, Output, Input, style, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
 @Component({
     selector: "tap-sqr",
     templateUrl: '../MyStaticFiles/sqr.html',
     styleUrls: ['../css/sqr.css']
 })
-export class TapSqr {
-    @Output() tapped = new EventEmitter(); 
-    @Input() isTitle: boolean = false;
-    isInitial: boolean = true;
-    isClicked: boolean = false;
-    ///On click call the event tapped with next and pass variables through this
+export class TapSqr implements OnChanges {
+    ///Input to change the behaviour of the square.
+    @Input() state: string = "Initial";
+    ///Output is tapped event.
+    @Output() tapped = new EventEmitter();
+    time: number = 2000;
+    baseStyle : string = "baseStyle";
+    style: string = "initial";
+
+    ///NOTE YOU DO NOT ADD THIS SINCE INPUT PARAMETER?? Strange??
+    ///@function ngOnChanges
+    ///Set timer to be clicked. If fired then send a missed event to grid component.
+    ngOnChanges(changes: { [state: string]: SimpleChange }) {
+        if (this.state === "initial" ){
+            this.style = "initial"; 
+        }
+        if (this.state === "toBeClicked") {
+            console.log("Make clickable");
+            ///Start timer. If you reach the end then you need to send a missed event.
+            this.style = "toBeClicked"; 
+            setTimeout(() => {
+                this.style = "missed"; 
+                this.tapped.next(["missed"]);
+            }, this.time)
+        }
+    }
+    ///@function onClick 
+    ///Only send clicked events for blocks which should be clicked.
+    ///Otherwise send a little shake to note you have made a mistake.
     onClick() {
-        this.isClicked = true;
+        if (this.style === "isToBeClicked") {
+            this.style = "clicked"; 
+            this.tapped.next(["gotIt"]);
+        } else {
+            this.style = "nonClick"; 
+        }
         setTimeout(() => {
-            this.isClicked = false;
-        }, 2000);
-        console.log("clicked");
-        this.tapped.next(["variables","something else"]);
+            this.style = "initial"; 
+        }, this.time)
+
     }
 }

@@ -1,1 +1,2 @@
-﻿<div [ngClass]="{initial: isInitial, clicked: isClicked, shake: isClicked || isTitle}" (click)="onClick()"></div>
+﻿<!-- This is the bottom of the DOM hierarchy. The left/right hand side will be from the sqr class. Place other input at grid level. -->
+<div [ngClass]="[baseStyle,style]" (click)="onClick()"></div>
