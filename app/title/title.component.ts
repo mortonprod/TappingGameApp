@@ -1,8 +1,8 @@
 ﻿import {Component, Output, Input, style} from '@angular/core';
 @Component({
     selector: "tap-title",
-    templateUrl: '../MyStaticFiles/title.html',
-    styleUrls: ['../css/title.css']
+    templateUrl: './title.template.html',
+    styleUrls: ['./title.style.css']
 })
 export class TapTitle {
     line1: string = "A world of tappers";
