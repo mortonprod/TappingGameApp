@@ -1,4 +1,5 @@
 ﻿import {Component, Output, Input, style} from '@angular/core';
+import "./title.style.css";
 @Component({
     selector: "tap-title",
     templateUrl: './title.template.html',

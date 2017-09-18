@@ -1,17 +1,6 @@
 ﻿import { Component } from '@angular/core';
-//import { TapGame } from './game';
-//import {TapTitle} from './title';
+import 'reflect-metadata';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { TapGame } from "./game";
 
-@Component({
-    selector: 'app',
-    template: `
-    <a [routerLink]="['/game']">game</a>
-        <main>
-            <router-outlet></router-outlet>
-        </main>
-    `,
-    directives: []
-
-})
-export class App {
-}
+platformBrowserDynamic().bootstrapModule(TapGame);

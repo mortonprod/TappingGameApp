@@ -2,8 +2,7 @@
 import { TapGrid } from './grid'
 
  @Component({
-    selector: "tap-game",
-    directives: [TapGrid],
+    selector: "TapGame",
     templateUrl:'./game.template.html'
 })
 

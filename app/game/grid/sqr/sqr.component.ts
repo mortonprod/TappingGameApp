@@ -1,4 +1,5 @@
 ﻿import {Component, Output,EventEmitter} from '@angular/core';
+import "sqr.style.css";
 @Component({
     selector: "tap-sqr",
     templateUrl: './sqr.template.html',

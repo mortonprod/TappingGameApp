@@ -2,7 +2,6 @@
 import {TapSqr} from './sqr';
 @Component({
     selector: "tap-grid",
-    directives: [TapSqr],
     templateUrl: './grid.template.html'
 })
 export class TapGrid{
