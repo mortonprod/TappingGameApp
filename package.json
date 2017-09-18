@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run tests",
-    "build": "./node_modules/.bin/webpack --progress"
+    "start": "NODE_ENV=development && webpack-dev-server --content-base dist/",
+    "build": "NODE_ENV=production && ./node_modules/.bin/webpack --progress && gulp"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,24 @@
   },
   "homepage": "https://github.com/mortonprod/tapping-game-app#readme",
   "dependencies": {
+    "@angular/common": "^4.4.1",
+    "@angular/compiler": "^4.4.1",
+    "@angular/core": "^4.4.1",
+    "@angular/platform-browser": "^4.4.1",
+    "@angular/platform-browser-dynamic": "^4.4.1",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.4.3",
+    "rxjs-es": "^5.0.0-beta.12",
+    "zone": "^0.3.4",
+    "zone.js": "^0.8.17"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "gulp": "^3.9.1",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "typescript": "^2.5.2",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
   }
 }
